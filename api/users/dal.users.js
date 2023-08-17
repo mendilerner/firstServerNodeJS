@@ -1,5 +1,6 @@
-import jsonfile from 'jsonfile';
-const FILE = './data/users.json'
+import jsonfile from 'jsonfile'; 
+const FILE = './data/users.json';
+// import s from '../../data/users.json'
 
 const getUsers = async (req, res) => {
     try{
@@ -50,5 +51,23 @@ const updateUser = async (userForUpdate) => {
     }
 }
 
-const funcs = {getUsers, getUser, addUser, updateUser}
+const deleteUser = async (userId) => {
+    try{
+        const users = await jsonfile.readFile(FILE);
+        let userIndex = users.findIndex((user) => user.id === userId)
+        if (userIndex === -1) {
+            return false
+        }
+        const deletedUser = users[userIndex]
+        users.splice(userIndex, 1)
+        await jsonfile.writeFile(FILE, users)
+        console.log(JSON.stringify(deletedUser));
+        return deletedUser
+    }
+    catch (err){
+        console.log(err);
+    }
+}
+
+const funcs = {getUsers, getUser, addUser, updateUser, deleteUser}
 export default funcs

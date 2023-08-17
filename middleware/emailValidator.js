@@ -9,7 +9,7 @@ const emailValidator = (req, res, next) => {
         }
     }
     catch (err){
-        res.send(err)
+        res.send(err.message)
         return
     }
     

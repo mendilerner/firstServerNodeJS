@@ -1,4 +1,4 @@
-import usersService from './../services/usersService.js'
+import usersService from './service.users.js'
 import { v4 as uuidv4 } from 'uuid';
 //import Utils from './../Utils.js'
 
@@ -47,8 +47,25 @@ const updateUser = async (req, res) => {
     res.status(200).json(updatedUser)
 }
 
+const deleteUser = async (req, res) => {
+    console.log('enter to delete user');
+    try{
+        const userId = req.params.id
+        const deletedUser = await usersService.deleteUser(userId)
+        if (deletedUser){
+            res.status(200).json({deletedUser})
+        }
+        else if (deletedUser === false){
+            res.send('user does not exist')
+        }
+    }
+    catch(err){
+        console.log("ERROR ", err);
+        res.status(500).json({ error: "server error"})
+    }
+}
 
 
 
-const funcs = { getUsers, getUser, addUser, updateUser }
+const funcs = { getUsers, getUser, addUser, updateUser, deleteUser }
 export default funcs

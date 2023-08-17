@@ -1,5 +1,5 @@
-import userDal from './../dal/usersDal.js'
-import Utils from './../Utils.js'
+import userDal from './dal.users.js'
+import Utils from './../../Utils.js'
 
 const getUsers = async (req, res) => {
     const users = await userDal.getUsers();
@@ -22,5 +22,10 @@ const updateUser = async (userForUpdate) =>{
     const updatedUser = await userDal.updateUser(userForUpdate);
     return updatedUser
 }
-const funcs = {getUsers, getUser, addUser, updateUser}
+
+const deleteUser = async (userId) =>{
+    const deletedUser = await userDal.deleteUser(userId);
+    return deletedUser
+}
+const funcs = {getUsers, getUser, addUser, updateUser, deleteUser}
 export default funcs
