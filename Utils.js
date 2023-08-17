@@ -19,13 +19,14 @@ function CheckValidUser(res, users, newUser){
     }
     return true
 }
-function encodedPassword(password){
-    const hash = bcrypt.hashSync(password, saltRounds);
+async function encodedPassword(password){
+    const hash = await bcrypt.hash(password, saltRounds);
     return hash
 }
 
-function compareEncodedPassword(password, hash){
-    return bcrypt.compareSync(password, hash); 
+async function compareEncodedPassword(password, hash){
+    const result = await bcrypt.compare(password, hash); 
+    return result
 }
 
 const funcs = {checkUserExist , CheckValidUser, encodedPassword, compareEncodedPassword}
